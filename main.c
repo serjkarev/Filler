@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "filler.h"
+#include <stdio.h>
 
-void    parce_player(t_lstmap *lstmap)
+void	parce_player(t_lstmap *lstmap)
 {
-	int     ret;
+	int		ret;
 	char	*str;
 
 	ret = get_next_line(0, &str);
@@ -36,13 +37,13 @@ void    parce_player(t_lstmap *lstmap)
 void	parce_mapsize(t_lstmap *lstmap)
 {
 	int		i;
-	int     ret;
+	int		ret;
 	char	*str;
 
 	i = 8;
 	ret = get_next_line(0, &str);
 	lstmap->hight = ft_atoi(&str[i]);
-	while(ft_isdigit(str[i]))
+	while (ft_isdigit(str[i]))
 		i++;
 	i += 1;
 	lstmap->width = ft_atoi(&str[i]);
@@ -84,7 +85,6 @@ void	parce_start_point(t_lstmap *lstmap)
 					start_point_1(lstmap, i, j);
 				else if (lstmap->player == 2)
 					start_point_2(lstmap, i, j);
-
 			}
 			j++;
 		}
@@ -92,13 +92,13 @@ void	parce_start_point(t_lstmap *lstmap)
 	}
 }
 
-int     main(void)
+int		main(void)
 {
-	t_lstmap    *lstmap;
+	t_lstmap	*lstmap;
 	t_lstpiece	*lstpiece;
 
-	lstmap = (t_lstmap*)malloc(sizeof(t_lstmap));
-	lstpiece = (t_lstpiece*)malloc(sizeof(t_lstpiece));
+	lstmap = (t_lstmap*)ft_memalloc(sizeof(t_lstmap));
+	lstpiece = (t_lstpiece*)ft_memalloc(sizeof(t_lstpiece));
 	parce_player(lstmap);
 	parce_mapsize(lstmap);
 	parce_map(lstmap);
@@ -111,10 +111,9 @@ int     main(void)
 		if (!print_coords(lstpiece))
 			break ;
 		reparce_map(lstmap);
+		free_lstpiece(lstpiece);
 		reparce_piece(lstpiece);
-		system("leaks -q skarev.filler");
-		// free_lstpiece(lstpiece);
 	}
-	// free_lstmap(lstmap);
+	free_lstmap(lstmap);
 	return (0);
 }

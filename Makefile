@@ -12,9 +12,9 @@
 
 NAME = skarev.filler
 
-CFLAG = -Wall -Wextra
+CFLAG = -Wall -Wextra -Werror
 
-SRCS = main.c free.c dop_1.c algorithm.c
+SRCS = main.c algorithm.c free.c dop_1.c dop_2.c
 
 LIBS = ./libft/libft.a
 
@@ -23,7 +23,7 @@ all: $(NAME)
 $(NAME): $(SRCS)
 	@make -C libft
 	@gcc $(CFLAG) -o $(NAME) $(SRCS) $(LIBS)
-	@gcc $(CFLAG) -o visual visual.c $(LIBS)
+	@gcc $(CFLAG) -o visual visual.c $(LIBS) -lcurses
 
 clean:
 		@make -C libft clean
